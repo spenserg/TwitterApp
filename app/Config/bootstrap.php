@@ -1,4 +1,4 @@
-<?php
+    <?php
 /**
  * This file is loaded automatically by the app/webroot/index.php file after core.php
  *
@@ -112,3 +112,37 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+/**
+ * Global User-Defined Functions
+ */
+
+function get_tweets($url, $method = 'get', $params = null) {
+  ini_set('max_execution_time', 300);
+  $c = curl_init($url);
+  if ($method == "post") {
+    curl_setopt($c, CURLOPT_POST, 1);
+    curl_setopt($c, CURLOPT_POSTFIELDS, $data);
+  }
+  curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+  $result = curl_exec($c);
+  if (curl_error($c))
+    die(curl_error($c));
+  curl_close($c);
+  return $result;
+}
+
+/**
+ * Application CONSTANTS
+ */
+
+Configure::write('debug', 2);        // 0,1,2(max)  => amount of debug/warning messages
+Configure::write('App.test_mode', true); // use sandbox systems?
+
+Configure::write('Twitter.key', 'lTef3yddwMHcM7ffl45H7PrzP');
+Configure::write('Twitter.secret', '54J6No9MxeFiTd5BuoATke3RpNCcUo07rnOTOfeXBIM5t1uP8s');
+Configure::write('Twitter.token', '2456658787-aEIUjwaBogDeLmfhtAMBVkjOLtulN63FWVWylLU');
+Configure::write('Twitter.token_secret', 'SP9WwB7WbC9VrXDCc6nXcRxSiugNBJyaBubJ7kT5DshhL');
+Configure::write('Twitter.owner_id', '2456658787');
+

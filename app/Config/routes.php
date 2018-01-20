@@ -27,7 +27,7 @@
 	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
 	//All extensions to go main page
-	Router::connect('/*', array('controller' => 'main', 'action' => 'index', 'home'));
+	//Router::connect('/*', array('controller' => 'main', 'action' => 'index', 'home'));
 
  /**
  * ...and connect the rest of 'Pages' controller's URLs.

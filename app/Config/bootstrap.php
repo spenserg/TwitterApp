@@ -93,6 +93,7 @@ Cache::config('default', array('engine' => 'File'));
  *
  * ));
  */
+
 Configure::write('Dispatcher.filters', array(
 	'AssetDispatcher',
 	'CacheDispatcher'
@@ -140,9 +141,10 @@ function get_tweets($url, $method = 'get', $params = null) {
 Configure::write('debug', 2);        // 0,1,2(max)  => amount of debug/warning messages
 Configure::write('App.test_mode', true); // use sandbox systems?
 
-Configure::write('Twitter.key', 'lTef3yddwMHcM7ffl45H7PrzP');
-Configure::write('Twitter.secret', '54J6No9MxeFiTd5BuoATke3RpNCcUo07rnOTOfeXBIM5t1uP8s');
+Configure::write('Twitter.consumerKey', 'lTef3yddwMHcM7ffl45H7PrzP');
+Configure::write('Twitter.consumerSecret', '54J6No9MxeFiTd5BuoATke3RpNCcUo07rnOTOfeXBIM5t1uP8s');
 Configure::write('Twitter.token', '2456658787-aEIUjwaBogDeLmfhtAMBVkjOLtulN63FWVWylLU');
-Configure::write('Twitter.token_secret', 'SP9WwB7WbC9VrXDCc6nXcRxSiugNBJyaBubJ7kT5DshhL');
+Configure::write('Twitter.tokenSecret', 'SP9WwB7WbC9VrXDCc6nXcRxSiugNBJyaBubJ7kT5DshhL');
 Configure::write('Twitter.owner_id', '2456658787');
 
+CakePlugin::load('Twitter');

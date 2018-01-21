@@ -2,7 +2,7 @@
   <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-5 col-md-offset-4 col-lg-4 col-lg-offset-4">
     <h3 class="semibold text-muted" style="text-align:center;">Twitter Search:</h3>
     <br/>
-    <form class="panel" action="/main" method="POST" id="express-form" style="margin-bottom:10px">
+    <form class="panel" action="/twitter/twitter/display" method="POST" id="express-form" style="margin-bottom:10px">
       <div class="panel-body">
 
         <div class="input-group input-group-lg">
@@ -14,7 +14,7 @@
         <div class="form-group">
           <label for="num_tweets"># of Tweets:</label>
           <div class="input-group">
-            <input type="number" class="form-control" name="num_tweets" id="num_tweets" placeholder="5" value="5" />
+            <input type="number" class="form-control" name="count" id="num_tweets" placeholder="5" value="5" />
             <span class="input-group-btn">
               <button class="btn btn-default" type="button" onclick="inc_num_tweets()">+</button>
             </span>
@@ -26,7 +26,7 @@
 
         <div class="form-group">
           <label for="search_input">Search Term:</label>
-          <input type="text" class="form-control" name="search" id="search_input" placeholder="Search" />
+          <input type="text" class="form-control" name="q" id="search_input" placeholder="Search" />
         </div>
 
         <div class="form-group">

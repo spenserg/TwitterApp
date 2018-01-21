@@ -65,13 +65,32 @@ class TwitterController extends AppController {
 	}
 
 /**
- * api request method
+ * tweet display method
  */
-  public function apiRequest() {
+  public function display() {
+    if (!$this->request->is('post')) {
+      $this->redirect('/main');
+    }
+    $params = $_POST;
+    $params['result_type'] = 'recent';
+    $params['lang'] = 'en';
+    $params['q'] .= ' from:' . $_POST['handle'];
+    $params['tweet_mode'] = 'extended';
     
-    debug($_GET);
-    debug($this->Twitter->apiRequest('get', '/1.1/search/tweets.json', array('q' => 'baseball')));
+    $r = $this->Twitter->apiRequest('get', '/1.1/search/tweets.json', $params);
+    $s = json_decode($r['body'], true);
     
+    $result = [];
+    foreach($s['statuses'] as $val) {
+      if (strtolower($val['user']['name']) == strtolower($_POST['handle'])) {
+        array_push($result, $val);
+      }
+    }
+    
+    //debug($result);
+    
+    $this->set('params', $_POST);
+    $this->set('tweets', $result);
   }
 
 /**

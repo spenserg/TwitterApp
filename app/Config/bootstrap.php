@@ -118,20 +118,10 @@ CakeLog::config('error', array(
  * Global User-Defined Functions
  */
 
-function get_tweets($url, $method = 'get', $params = null) {
-  ini_set('max_execution_time', 300);
-  $c = curl_init($url);
-  if ($method == "post") {
-    curl_setopt($c, CURLOPT_POST, 1);
-    curl_setopt($c, CURLOPT_POSTFIELDS, $data);
-  }
-  curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
-  $result = curl_exec($c);
-  if (curl_error($c))
-    die(curl_error($c));
-  curl_close($c);
-  return $result;
+function add_links($str) {
+  $str = preg_replace('/(http[s]*:\/\/[\S]+)/', '<a href="$0">$0</a>', $str);
+  $str = preg_replace('/@([A-Za-z0-9_]+)/', '<a href="https://twitter.com/$1">$0</a>', $str);
+  return preg_replace('/#([A-Za-z0-9]+)/', '<a href="https://twitter.com/hashtag/$1">$0</a>', $str);
 }
 
 /**

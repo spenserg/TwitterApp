@@ -83,11 +83,10 @@ class TwitterController extends AppController {
     $result = [];
     foreach($s['statuses'] as $val) {
       if (strtolower($val['user']['name']) == strtolower($_POST['handle'])) {
+        $val['full_text'] = add_links($val['full_text']);
         array_push($result, $val);
       }
     }
-    
-    //debug($result);
     
     $this->set('params', $_POST);
     $this->set('tweets', $result);

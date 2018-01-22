@@ -18,8 +18,8 @@
 
 <div class="panel panel-info" style="margin:20px">
   <div class="panel-heading">
-    <h3 class="panel-title">
-      Showing <?=count($tweets)?> Results For:
+    <h3 class="panel-title" style="color:black">
+      Showing <?=count($tweets)?> Result<?=count($tweets)==1 ? '' : 's' ?> For:
     </h3>
   </div>
   <div class="panel-body">
@@ -31,7 +31,7 @@
 </div>
 
 <?php foreach($tweets as $val) { ?>
-<div class="well">
+<div class="well" style="margin:20px">
   <h4 class="semibold text-muted">
     Posted on: <?=date('F j', strtotime($val['created_at']))?>
   </h4>

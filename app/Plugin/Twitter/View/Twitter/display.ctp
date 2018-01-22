@@ -30,13 +30,20 @@
   </div>
 </div>
 
-<?php foreach($tweets as $val) { ?>
-<div class="well" style="margin:20px">
+<?php for ($i = 0; $i < sizeOf($tweets); $i++) { ?>
+<div class="well" style="margin:20px" id="tweet_<?=$i?>">
+  <button type="button" class="close" onclick="close_well($(this).parent())">x</button>
   <h4 class="semibold text-muted">
-    Posted on: <?=date('F j', strtotime($val['created_at']))?>
+    Posted on: <?=date('F j', strtotime($tweets[$i]['created_at']))?>
   </h4>
-  <?=$val['full_text']?>
+  <?=$tweets[$i]['full_text']?>
 </div>
 <?php } ?>
 
 <?php } ?>
+
+<script>
+  function close_well(item) {
+    item.hide();
+  }
+</script>

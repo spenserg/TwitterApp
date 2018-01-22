@@ -31,7 +31,10 @@
 
         <div class="form-group">
           <label for="location_input">Location (Optional):</label>
-          <input type="text" class="form-control" name="location" id="location_input" placeholder="Search" />
+          <input type="text" class="form-control" name="location" id="location_input" style="margin-bottom:10px" placeholder="Search" />
+          <div id="geolocate_option">
+            <input type="checkbox" onclick="add_location()"> Use Current Location
+          </div>
         </div>
 
         <br/>
@@ -48,35 +51,65 @@
 
 <script>
 
+  $(function() {
+    //Hide current location option if:
+    //Not secure [required by Geolocation API]
+    //Geolocation not supported (HTML version < 5 etc)
+    if (!(navigator.geolocation && document.URL.includes('https'))) {
+      $('#geolocate_option').hide();
+    }
+  })
+
   $("#num_tweets").mouseup(function() {
+    //validate number of tweets on mouse click
+    //useful for validation after '+' and '-' buttons are used
     validate_num_tweets();
   });
   
   $("#num_tweets").blur(function(){
+    //validate number of tweets when input loses focus
     validate_num_tweets();
   })
   
   function inc_num_tweets() {
+    //increment number of tweets
     $("#num_tweets").val(parseInt($("#num_tweets").val()) + 1);
   }
   
   function dec_num_tweets() {
+    //decrement number of tweets, but not less than 1
     var val = parseInt($("#num_tweets").val()) - 1;
     $("#num_tweets").val(val);
     validate_num_tweets();
   }
   
-  function validate_num_tweets(){
+  function validate_num_tweets() {
+    //if number of tweets is invalid, set to 1
     var val = parseInt($("#num_tweets").val());
     $("#num_tweets").val(val < 1 ? 1 : val);
   }
+  
+  function add_location() {
+    //enter location using HTML 5 Geolocation API
+    if (navigator.geolocation && document.URL.includes('https')) {
+      navigator.geolocation.getCurrentPosition(twitter_loc);
+    }
+  }
+  
+  function twitter_loc(position) {
+    //function used in 'add_location' function above
+    $('#location_input').val(position.coords.latitude + ', ' + position.coords.longitude);
+  }
 
-  function submit_form(){
+  function submit_form() {
     var errors = "";
+    
+    //Reset all borders to gray
     $('#handle_input').css('border-color','#ccc');
     $('#search_input').css('border-color','#ccc');
     $('#num_tweets').css('border-color','#ccc');
     
+    //Error checking
     if ($("#handle_input").val() == "") {
       errors = "Please enter a handle to search.";
       $('#handle_input').css('border-color','red').focus();
@@ -87,12 +120,15 @@
       errors = "Please enter a search term.";
       $('#search_input').css('border-color','red').focus();
     }
+    
     if (errors != ""){
+      //If there are errors, create an error box
       $("#errors").html('<div class="fade in alert alert-danger" style="margin-bottom:10px" id="alert_display">'+
             '<button type="button" class="close" data-dismiss="alert" style="font-size:16px">x</button>'+
             errors+'</div>');
       window.scrollTo(0,0);
     }else{
+      //If no errors, submit the form
       $("#express-form").submit();
     }
   }

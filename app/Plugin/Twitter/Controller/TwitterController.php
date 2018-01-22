@@ -77,6 +77,24 @@ class TwitterController extends AppController {
     $params['q'] .= ' from:' . $_POST['handle'];
     $params['tweet_mode'] = 'extended';
     
+    //Determine if location is lat/long or a "place"
+    $disp_location = true;
+    $is_latlong = (strpos($params['location'], ',') !== false);
+    if (str_replace(" ", "", $params['location']) != "" && $is_latlong) {
+      for ($i = 0; $i < strlen($params['location']); $i++) {
+        if (strpos('1234567890., ', substr( $params['location'], $i, 1)) === false) {
+          $is_latlong = false;
+        }
+      }
+      if ($is_latlong) {
+        $params['coordinates'] = $params['location'];
+      } else {
+        $params['place'] = $params['location'];
+      }
+    } else {
+      $disp_location = false;
+    }
+    
     $r = $this->Twitter->apiRequest('get', '/1.1/search/tweets.json', $params);
     $s = json_decode($r['body'], true);
     
@@ -87,7 +105,10 @@ class TwitterController extends AppController {
         array_push($result, $val);
       }
     }
-    
+
+    $this->set('disp_location', $disp_location);
+    $this->set('is_latlong', $is_latlong);
+    $this->set('location_str', $params['location']);
     $this->set('params', $_POST);
     $this->set('tweets', $result);
   }

@@ -9,6 +9,9 @@
   <div class="panel-body">
     <b>Search Term:</b> "<?=$params['q']?>"<br/>
     <b>User:</b> <?=$params['handle']?><br/>
+<?php if ($disp_location) { ?>
+    <b><?=$is_latlong ? 'Coordinates' : 'Place'?>:</b> <?=$location_str?><br/>
+<?php } ?>
     <br/>
     <a class="btn btn-info" href="/main">Return to Search Page</a>
   </div>
@@ -23,8 +26,11 @@
     </h3>
   </div>
   <div class="panel-body">
-    Search Term: "<?=$params['q']?>"<br/>
-    User: <?=$params['handle']?><br/>
+    <b>Search Term:</b> "<?=$params['q']?>"<br/>
+    <b>User:</b> <?=$params['handle']?><br/>
+<?php if ($disp_location) { ?>
+    <b><?=$is_latlong ? 'Coordinates' : 'Place'?>:</b> <?=$location_str?><br/>
+<?php } ?>
     <br/>
     <a class="btn btn-info" href="/main">Return to Search Page</a>
   </div>

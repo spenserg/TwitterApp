@@ -27,25 +27,25 @@ The application supports the latest, stable releases of all major browsers and p
 ## External Libraries Used
 
 JQuery v3.3.1<br/>
-Purpose: Javascript library to simplify HTML manipulation
-Released under the MIT license, copyright 2018
+Purpose: Javascript library to simplify HTML manipulation.<br/>
+Released under the MIT license, copyright 2018.<br/>
 http://jquery.com/
 
-CakePHP v3.5
-Purpose: Pre-built MVC framework
-Released under the MIT license, copyright 2018
-Requirements: PHP version 5.6.0+
+CakePHP v3.5<br/>
+Purpose: Pre-built MVC framework.<br/>
+Released under the MIT license, copyright 2018.<br/>
+Requirements: PHP version 5.6.0+<br/>
 https://cakephp.org/
 
-Bootstrap v4.0
-Purpose: Toolkit used to design user interface
-Released under the MIT license, copyright 2018 Twitter
+Bootstrap v4.0<br/>
+Purpose: Toolkit used to design user interface.<br/>
+Released under the MIT license, copyright 2018 Twitter.<br/>
 https://getbootstrap.com/
 
-CakePHP-2.x-Twitter-Plugin
-Purpose: CakePHP Plugin used to interact with Twitter API
-Released under the MIT license
-Requirements: PHP version 5.2+, CakePHP version 2.0+
+CakePHP-2.x-Twitter-Plugin<br/>
+Purpose: CakePHP Plugin used to interact with Twitter API.<br/>
+Released under the MIT license.<br/>
+Requirements: PHP version 5.2+, CakePHP version 2.0+<br/>
 https://github.com/mishudark/CakePHP-2.x-Twitter-Plugin
 
 ## License

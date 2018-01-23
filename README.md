@@ -26,7 +26,7 @@ The application supports the latest, stable releases of all major browsers and p
 
 ## External Libraries Used
 
-JQuery v3.3.1
+JQuery v3.3.1<br/>
 Purpose: Javascript library to simplify HTML manipulation
 Released under the MIT license, copyright 2018
 http://jquery.com/

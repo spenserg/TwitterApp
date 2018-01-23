@@ -71,44 +71,41 @@ class TwitterController extends AppController {
     if (!$this->request->is('post')) {
       $this->redirect('/main');
     }
-    $params = $_POST;
-    $params['result_type'] = 'recent';
-    $params['lang'] = 'en';
-    $params['q'] .= ' from:' . $_POST['handle'];
-    $params['tweet_mode'] = 'extended';
-    
-    //Determine if location is lat/long or a "place"
-    $disp_location = true;
-    $is_latlong = (strpos($params['location'], ',') !== false);
-    if (str_replace(" ", "", $params['location']) != "" && $is_latlong) {
-      for ($i = 0; $i < strlen($params['location']); $i++) {
-        if (strpos('1234567890., ', substr( $params['location'], $i, 1)) === false) {
-          $is_latlong = false;
-        }
+
+    //Set query variable with search terms, users, and location
+    $params['q'] = preg_replace('/([\s,|\/"]+)/', '%20OR%20', trim($_POST['search_term']));
+    if ($_POST['location'] != '') {
+      if ($params['q'] != '') {
+        $params['q'] .= "%20";
       }
-      if ($is_latlong) {
-        $params['coordinates'] = $params['location'];
-      } else {
-        $params['place'] = $params['location'];
-      }
-    } else {
-      $disp_location = false;
+      $params['q'] .= 'near%3A"' . $_POST['location'] . '"';
+    }
+    if ($_POST['handle'] != '') {
+      $params['from'] = $_POST['handle'];
     }
     
+    //Set twitter API parameters
+    $params['count'] = $_POST['count'];
+    $params['result_type'] = 'recent';
+    $params['lang'] = 'en';
+    $params['tweet_mode'] = 'extended';
+    
+    //Hit Twitter API with parameters and convert result to array
     $r = $this->Twitter->apiRequest('get', '/1.1/search/tweets.json', $params);
     $s = json_decode($r['body'], true);
     
+    //debug($s);
+    
+    //Add links to hashtags / @users and highlight search words
     $result = [];
     foreach($s['statuses'] as $val) {
-      if (strtolower($val['user']['name']) == strtolower($_POST['handle'])) {
-        $val['full_text'] = add_links($val['full_text']);
-        array_push($result, $val);
-      }
+      $val['full_text'] = add_links($val['full_text']);
+      array_push($result, $val);
     }
 
-    $this->set('disp_location', $disp_location);
-    $this->set('is_latlong', $is_latlong);
-    $this->set('location_str', $params['location']);
+    //Set view variables
+    $this->set('is_latlong', $_POST['is_coords']);
+    $this->set('location_str', $_POST['location']);
     $this->set('params', $_POST);
     $this->set('tweets', $result);
   }

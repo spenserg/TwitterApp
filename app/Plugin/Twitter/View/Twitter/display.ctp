@@ -7,13 +7,20 @@
     </h3>
   </div>
   <div class="panel-body">
-    <b>Search Term:</b> "<?=$params['q']?>"<br/>
+<?php if ($params['search_term'] != '') { ?>
+    <b>Search Term:</b> "<?=$params['search_term']?>"<br/>
+<?php } if ($params['handle'] != '') { ?>
     <b>User:</b> <?=$params['handle']?><br/>
-<?php if ($disp_location) { ?>
+<?php } if ($location_str != "") { ?>
     <b><?=$is_latlong ? 'Coordinates' : 'Place'?>:</b> <?=$location_str?><br/>
 <?php } ?>
     <br/>
-    <a class="btn btn-info" href="/main">Return to Search Page</a>
+    <form method="post" action="/main">
+      <button class="btn btn-info" type="submit">Return to Search Page</button>
+      <input type="hidden" name="search_term" value="<?=$params['search_term']?>" />
+      <input type="hidden" name="handle" value="<?=$params['handle']?>" />
+      <input type="hidden" name="location" value="<?=$location_str?>" />
+    </form>
   </div>
 </div>
 
@@ -26,13 +33,20 @@
     </h3>
   </div>
   <div class="panel-body">
-    <b>Search Term:</b> "<?=$params['q']?>"<br/>
+<?php if ($params['search_term'] != '') { ?>
+    <b>Search Term:</b> "<?=$params['search_term']?>"<br/>
+<?php } if ($params['handle'] != '') { ?>
     <b>User:</b> <?=$params['handle']?><br/>
-<?php if ($disp_location) { ?>
+<?php } if ($location_str != "") { ?>
     <b><?=$is_latlong ? 'Coordinates' : 'Place'?>:</b> <?=$location_str?><br/>
 <?php } ?>
     <br/>
-    <a class="btn btn-info" href="/main">Return to Search Page</a>
+    <form method="post" action="/main">
+      <button class="btn btn-info" type="submit">Return to Search Page</button>
+      <input type="hidden" name="search_term" value="<?=$params['search_term']?>" />
+      <input type="hidden" name="handle" value="<?=$params['handle']?>" />
+      <input type="hidden" name="location" value="<?=$location_str?>" />
+    </form>
   </div>
 </div>
 
@@ -40,7 +54,7 @@
 <div class="well" style="margin:20px" id="tweet_<?=$i?>">
   <button type="button" class="close" onclick="close_well($(this).parent())">x</button>
   <h4 class="semibold text-muted">
-    Posted on: <?=date('F j', strtotime($tweets[$i]['created_at']))?>
+    Posted on <?=date('F j', strtotime($tweets[$i]['created_at']))?> by <a href="https://twitter.com/<?=$tweets[$i]['user']['screen_name']?>">@<?=$tweets[$i]['user']['screen_name']?></a>
   </h4>
   <?=$tweets[$i]['full_text']?>
 </div>

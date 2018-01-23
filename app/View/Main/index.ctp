@@ -7,7 +7,7 @@
 
         <div class="input-group input-group-lg">
           <span class="input-group-addon">@</span>
-          <input type="text" name="handle" class="form-control" id="handle_input" placeholder="Handle" />
+          <input type="text" name="handle" class="form-control" id="handle_input" placeholder="Handle" value="<?=$handle?>" />
         </div>
 
         <br/>
@@ -22,19 +22,23 @@
               <button class="btn btn-default" type="button" onclick="dec_num_tweets()">-</button>
             </span>
           </div>
+          <small>Max value is 100</small>
         </div>
 
         <div class="form-group">
-          <label for="search_input">Search Term:</label>
-          <input type="text" class="form-control" name="q" id="search_input" placeholder="Search" />
+          <label for="search_input">Search Term(s):</label>
+          <input type="text" class="form-control" name="search_term" id="search_input" placeholder="Search" value="<?=$search_term?>" />
+          <small>Note: Separate words with a space. Search returns tweets containing any of these terms</small>
         </div>
 
         <div class="form-group">
           <label for="location_input">Location (Optional):</label>
-          <input type="text" class="form-control" name="location" id="location_input" style="margin-bottom:10px" placeholder="Search" />
+          <input type="text" class="form-control" name="location" id="location_input" style="margin-bottom:10px" placeholder="Location" value="<?=$location?>" />
+          <small>Note: Coordinates are not yet supported</small>
           <div id="geolocate_option">
             <input type="checkbox" onclick="add_location()"> Use Current Location
           </div>
+          <input type="hidden" name="is_coords" id="is_coords" value="0" />
         </div>
 
         <br/>
@@ -52,12 +56,19 @@
 <script>
 
   $(function() {
+    $('#geolocate_option').hide();
+    
+    /*
+     * Coordinates not currently supported
+     *
     //Hide current location option if:
     //Not secure [required by Geolocation API]
     //Geolocation not supported (HTML version < 5 etc)
     if (!(navigator.geolocation && document.URL.includes('https'))) {
       $('#geolocate_option').hide();
     }
+    
+    */
   })
 
   $("#num_tweets").mouseup(function() {
@@ -74,12 +85,12 @@
   function inc_num_tweets() {
     //increment number of tweets
     $("#num_tweets").val(parseInt($("#num_tweets").val()) + 1);
+    validate_num_tweets();
   }
   
   function dec_num_tweets() {
     //decrement number of tweets, but not less than 1
-    var val = parseInt($("#num_tweets").val()) - 1;
-    $("#num_tweets").val(val);
+    $("#num_tweets").val(parseInt($("#num_tweets").val()) - 1);
     validate_num_tweets();
   }
   
@@ -87,6 +98,7 @@
     //if number of tweets is invalid, set to 1
     var val = parseInt($("#num_tweets").val());
     $("#num_tweets").val(val < 1 ? 1 : val);
+    $("#num_tweets").val(val > 100 ? 100 : val);
   }
   
   function add_location() {
@@ -100,32 +112,64 @@
     //function used in 'add_location' function above
     $('#location_input').val(position.coords.latitude + ', ' + position.coords.longitude);
   }
+  
+  function is_coordinates(str) {
+    if (!(str.includes(','))) { return false; }
+    for (var i = 0; i < str.length; i++) {
+      var num_string = '1234567890,. ';
+      if (!num_string.includes(str[i])) { return false; }
+    }
+    var coords = str.split(',');
+    if (coords.length != 2) { return false; }
+    return true;
+  }
 
   function submit_form() {
     var errors = "";
+    var alert_type = "danger";
     
     //Reset all borders to gray
     $('#handle_input').css('border-color','#ccc');
     $('#search_input').css('border-color','#ccc');
     $('#num_tweets').css('border-color','#ccc');
+    $('#location_input').css('border-color','#ccc');
     
     //Error checking
-    if ($("#handle_input").val() == "") {
-      errors = "Please enter a handle to search.";
+    if ($("#handle_input").val() == "" && $("#search_input").val() == "") {
+      errors = "Please enter either a handle or a term to search.";
+      $('#search_input').css('border-color','red');
       $('#handle_input').css('border-color','red').focus();
     } else if ($("#num_tweets").val() == "" || parseInt($("#num_tweets").val()) < 1) {
       errors = "Please enter valid number of tweets.";
       $('#num_tweets').css('border-color','red').focus();
-    } else if ($("#search_input").val() == "") {
-      errors = "Please enter a search term.";
-      $('#search_input').css('border-color','red').focus();
+    } else if (is_coordinates($('#location_input').val())) {
+      alert_type = "warning";
+      $('#location_input').css('border-color','red').focus();
+      errors = "Coordinates are not yet supported";
+      
+/*
+ *  Coordinates are not yet supported
+ * 
+ 
+      $('#is_coords').val(1);
+      var coords = $('#location_input').val().split(',');
+      if (parseInt(coords[0]) > 90 || parseInt(coords[0]) < -90) {
+        errors = "Latitude cannot be more than 90 or less than -90";
+        $('#location_input').css('border-color','red').focus();
+      }
+      if (parseInt(coords[1]) > 180 || parseInt(coords[1]) < -180) {
+        errors = "Longitude cannot be more than 180 or less than -180";
+        $('#location_input').css('border-color','red').focus();
+      }
+
+*/
     }
-    
+
     if (errors != ""){
       //If there are errors, create an error box
-      $("#errors").html('<div class="fade in alert alert-danger" style="margin-bottom:10px" id="alert_display">'+
+      $("#errors").html('<div class="fade in alert alert-' + alert_type + '" style="margin-bottom:10px" id="alert_display">'+
             '<button type="button" class="close" data-dismiss="alert" style="font-size:16px">x</button>'+
-            errors+'</div>');
+            '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' + errors+'</div>');
       window.scrollTo(0,0);
     }else{
       //If no errors, submit the form

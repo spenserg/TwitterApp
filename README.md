@@ -4,6 +4,9 @@
 I chose to build the TwitterApp because I felt it provided the best opportunity to showcase my skills in the provided languages. Additionally, I have never worked with the Twitter API before and it gave me a chance to become familiar with it.
 
 ## Usage
+
+To set up the site, point the server at the root "TwitterHelper" folder. The main page of the site can be reached at "EXAMPLE_URL/" or "EXAMPLE_URL/main" or "EXAMPLE_URL/main/index". They all redirect to the same page.
+
 To use the application, enter a handle or search term and a number of tweets. Users may use either a handle, a search term, or both, though the number of tweets is required. The location is optional, and accepts string locations. Coordinates are not yet supported, and if entered, the application will display a warning. If the user tries to submit the form without a search term or handle, an error will display and the missing fields will be highlighted. To submit the form, click the "Search" button at the bottom of the form.
 
 If the information is valid, the results of your search will be displayed. URLs, hashtags, and screen names become clickable links that take the user to the respective twitter page. Each box can be hidden from the page by clicking a small "X" at the top corner of the box. Boxes hidden this way will disappear until another search is done.

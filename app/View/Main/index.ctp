@@ -5,6 +5,7 @@
     <form class="panel" action="/twitter/twitter/display" method="POST" id="express-form" style="margin-bottom:10px">
       <div class="panel-body">
 
+        <label for="handle_input">Handle:</label>
         <div class="input-group input-group-lg">
           <span class="input-group-addon">@</span>
           <input type="text" name="handle" class="form-control" id="handle_input" placeholder="Handle" value="<?=$handle?>" />

@@ -1,6 +1,6 @@
 <?php if (!count($tweets)) { ?>
 
-<div class="panel panel-danger">
+<div class="panel panel-danger" style="margin:20px">
   <div class="panel-heading">
     <h3 class="panel-title">
       No Results Found!

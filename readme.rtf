@@ -4,72 +4,73 @@
 \margl1440\margr1440\vieww9360\viewh9440\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs36 \cf0 Overview:\
-
-\f1\fs24 //which app chosen and why\
-I chose to build the TwitterApp because I felt it provided the best opportunity to showcase my skills. 
+\f0\fs36 \cf0 Overview:
+\f1\fs24 \
+I chose to build the TwitterApp because I felt it provided the best opportunity to showcase my skills in the provided languages. Additionally, I have never worked with the Twitter API before and it gave me a chance to become familiar with it.
 \f0\fs36 \
 \
 Usage:\
 
-\f1\fs24 //how to use and test
-\f0\fs36 \
+\f1\fs24 To use the application, enter a handle or search term and a number of tweets. Users may use either a handle, a search term, or both, though the number of tweets is required. The location is optional, and accepts string locations. Coordinates are not yet supported, and if entered, the application will display a warning. If the user tries to submit the form without a search term or handle, an error will display and the missing fields will be highlighted. To submit the form, click the "Search" button at the bottom of the form.\
 \
-Examples:\
+If the information is valid, the results of your search will be displayed. URLs, hashtags, and screen names become clickable links that take the user to the respective twitter page. Each box can be hidden from the page by clicking a small "X" at the top corner of the box. Boxes hidden this way will disappear until another search is done.\
 \
-Requirements:\
-
-\f1\fs24 //OS or libraries or service packs or tools required + versions
+If there are no results, the application will show a notification that no results were found as well as the respective search terms used. The user may return to the search page by clicking the "Return to Search Page" button. Clicking the "Return to Search Page" takes the user back to the previous page, automatically filling in the boxes with the previous search queries.
 \f0\fs36 \
 \
 Notes:\
 
-\f1\fs24 //design decisions or behavior clarifications\
-//why you did what you did
-\f0\fs36 \
+\f1\fs24 I decided to use CakePHP and Bootstrap to build this application because they both allowed me to create a relatively good looking prototype in a short amount of time. Additionally, CakePHP has built in functions for logging users in and out that I could use to implement the bonus feature of logging a user in and posting a tweet.\
 \
+All external libraries use the MIT License. I decided to use the Twitter Plugin written by mishudark because it only had two known issues and was relatively simple compared to other programs that built specifically to work with CakePHP.\
+\
+By default, search will pull the most recent tweets. Twitter has the option to pull by popularity, I decided to make the results appear in chronological order because the basic API is limited to searching only the past seven days. Additionally, I've limited the number of results to 100 because it is the same limitation the Twitter API uses.\
+\
+Twitter's API has an option of retrieving full text instead of the stunted version, but even when used, some instances of a tweet's "full text" will be appear chopped off.\
+
+\f0\fs36 \
+Requirements:
+\f1\fs24 \
+The application supports the latest, stable releases of all major browsers and platforms.\
+
+\f0\fs36 \
 External Libraries Used:
 \f1\b\fs24 \
 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 JQuery v3.3.1\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+JQuery v3.3.1\
 
-\b0 \cf0 Purpose: Javascript library to simplify HTML manipulation\
+\b0 Purpose: Javascript library to simplify HTML manipulation\
 Released under the MIT license, copyright 2018\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 {\field{\*\fldinst{HYPERLINK "https://jquery.org/"}}{\fldrslt \cf0 http://jquery.com/}}\
-
-\b \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 CakePHP v3.5
+
+\b \cf0 \
+CakePHP v3.5
 \b0 \
 Purpose: Pre-built MVC framework\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 Released under the MIT license, copyright 2018\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 Requirements: PHP version 5.6.0+\
+Released under the MIT license, copyright 2018\
+Requirements: PHP version 5.6.0+\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 {\field{\*\fldinst{HYPERLINK "https://cakephp.org/"}}{\fldrslt \cf0 https://cakephp.org/}}
 \b \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \
+\
 Bootstrap v4.0\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \b0 \cf0 Purpose: Toolkit used to design user interface\
+Released under the MIT license, copyright 2018 Twitter\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 Released under the MIT license, copyright 2018 Twitter.\
-{\field{\*\fldinst{HYPERLINK "https://getbootstrap.com/"}}{\fldrslt https://getbootstrap.com/}}\
+{\field{\*\fldinst{HYPERLINK "https://getbootstrap.com/"}}{\fldrslt \cf0 https://getbootstrap.com/}}\
 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\b CakePHP-2.x-Twitter-Plugin\
+\b \cf0 CakePHP-2.x-Twitter-Plugin\
 
 \b0 Purpose: CakePHP Plugin used to interact with Twitter API
 \b \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\b0 \cf0 Released under the MIT license\
+\b0 Released under the MIT license\
+Requirements: PHP version 5.2+, CakePHP version 2.0+\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 Requirements: PHP version 5.2+, CakePHP version 2.0+\
-{\field{\*\fldinst{HYPERLINK "https://github.com/mishudark/CakePHP-2.x-Twitter-Plugin"}}{\fldrslt https://github.com/mishudark/CakePHP-2.x-Twitter-Plugin}}}
+{\field{\*\fldinst{HYPERLINK "https://github.com/mishudark/CakePHP-2.x-Twitter-Plugin"}}{\fldrslt \cf0 https://github.com/mishudark/CakePHP-2.x-Twitter-Plugin}}}
